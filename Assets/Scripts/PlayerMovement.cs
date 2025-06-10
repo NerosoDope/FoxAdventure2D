@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
     bool isCrouchPressed;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         Application.targetFrameRate = 144;
@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Run();
@@ -41,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         if (isCrouchPressed)
         {
             myRigidbody.linearVelocity = new Vector2(0, myRigidbody.linearVelocity.y);
-            myAnimator.SetBool("isRunning", false);
+            myAnimator.SetBool("isRunning", !isCrouchPressed);
             return;
         }
 
@@ -90,7 +89,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Crouch()
     {
-        bool isGrounded = myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform"));
         if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform")))
         {
             myAnimator.SetBool("isCrouching", isCrouchPressed);
