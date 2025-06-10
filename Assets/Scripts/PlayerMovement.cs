@@ -11,7 +11,10 @@ public class PlayerMovement : MonoBehaviour
     CapsuleCollider2D myBodyCollider;
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
+    [SerializeField] float deathBounce;
     bool isCrouchPressed;
+    bool isAlive = true;
+
 
     void Start()
     {
@@ -24,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!isAlive) { return; }
         Run();
         Crouch();
         FlipSprite();
@@ -32,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnMove(InputValue value)
     {
+        if (!isAlive) { return; }
         moveInput = value.Get<Vector2>();
     }
 
@@ -60,17 +65,18 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump(InputValue value)
     {
+        if (!isAlive) { return; }
         if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform")))
-        {
-            return;
-        }
-        if (isCrouchPressed)
         {
             return;
         }
         if (value.isPressed)
         {
-            myRigidbody.linearVelocity = new Vector2(0, jumpSpeed);
+            myRigidbody.linearVelocity += new Vector2(0f, jumpSpeed);
+        }
+        if (isCrouchPressed)
+        {
+            return;
         }
     }
 
@@ -84,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCrouch(InputValue value)
     {
+        if (!isAlive) { return; }
         isCrouchPressed = value.isPressed;
     }
 
@@ -93,5 +100,12 @@ public class PlayerMovement : MonoBehaviour
         {
             myAnimator.SetBool("isCrouching", isCrouchPressed);
         }
+    }
+
+    public void Die()
+    {
+        isAlive = false;
+        myAnimator.SetTrigger("isDying");
+        myRigidbody.linearVelocity = new Vector2(-(moveInput.x * moveSpeed), deathBounce);
     }
 }

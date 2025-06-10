@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - BG Platform
   - Enemy
   - Interactables
-  - 
+  - Tree Background
   - 
   - 
   - 
@@ -43,6 +45,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 974986503
+    locked: 0
+  - name: Tree Background
+    uniqueID: 1931296695
     locked: 0
   - name: BG Platform
     uniqueID: 3762500569
