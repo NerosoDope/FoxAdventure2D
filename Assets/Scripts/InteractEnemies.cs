@@ -5,7 +5,6 @@ public class InteractEnemies : MonoBehaviour
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeetCollider;
     Rigidbody2D myRigidbody;
-    Animator animator;
     [SerializeField] float bounceForce;
 
     void Start()

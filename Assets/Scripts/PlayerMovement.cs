@@ -11,16 +11,12 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D myRigidbody;
     BoxCollider2D myFeetCollider;
     CapsuleCollider2D myBodyCollider;
-    [SerializeField] int maxHealth = 5;
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
     [SerializeField] float deathBounce;
-    [SerializeField] float knockbackForce;
-    [SerializeField] AudioClip hurtSFX;
     [SerializeField] AudioClip deathSFX;
     bool isCrouchPressed;
     bool isAlive = true;
-    int health;
 
     void Start()
     {
@@ -29,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
         myFeetCollider = GetComponent<BoxCollider2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myAnimator = GetComponent<Animator>();
-        health = maxHealth;
     }
 
     void Update()
