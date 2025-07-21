@@ -27,18 +27,7 @@ public class EagleMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            PlayerMovement player = collision.GetComponent<PlayerMovement>();
-            if (player != null)
-            {
-                player.Die();
-            }
-        }
-        else
-        {
-            moveSpeed = -moveSpeed;
-        }
+        moveSpeed = -moveSpeed;
     }
 
     public void Die()

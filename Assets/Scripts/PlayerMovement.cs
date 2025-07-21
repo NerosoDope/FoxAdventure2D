@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements.Experimental;
@@ -9,20 +11,25 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D myRigidbody;
     BoxCollider2D myFeetCollider;
     CapsuleCollider2D myBodyCollider;
+    [SerializeField] int maxHealth = 5;
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
     [SerializeField] float deathBounce;
+    [SerializeField] float knockbackForce;
+    [SerializeField] AudioClip hurtSFX;
+    [SerializeField] AudioClip deathSFX;
     bool isCrouchPressed;
     bool isAlive = true;
-
+    int health;
 
     void Start()
     {
-        Application.targetFrameRate = 144;
+        Application.targetFrameRate = 180;
         myRigidbody = GetComponent<Rigidbody2D>();
         myFeetCollider = GetComponent<BoxCollider2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myAnimator = GetComponent<Animator>();
+        health = maxHealth;
     }
 
     void Update()
@@ -104,8 +111,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void Die()
     {
+        if (!isAlive) return;
+
         isAlive = false;
         myAnimator.SetTrigger("isDying");
         myRigidbody.linearVelocity = new Vector2(-(moveInput.x * moveSpeed), deathBounce);
+        // AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position);
+    }
+
+    IEnumerator ResetHurtAnimation()
+    {
+        yield return new WaitForSeconds(0.3f);
+        myAnimator.SetBool("isHurt", false);
     }
 }

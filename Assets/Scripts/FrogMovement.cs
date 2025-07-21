@@ -9,8 +9,10 @@ public class FrogMovement : MonoBehaviour
 
     Rigidbody2D myRigidbody;
     Animator myAmimation;
+    Collider2D myCollider;
     float jumpTimer;
     float direction = 1f;
+    bool isAlive = true;
 
     void Start()
     {
@@ -22,28 +24,45 @@ public class FrogMovement : MonoBehaviour
     {
         isGrounded = myRigidbody.IsTouchingLayers(LayerMask.GetMask("Platform"));
         jumpTimer -= Time.deltaTime;
-
-        if (!isGrounded)
+        if (isAlive)
         {
-            myAmimation.SetBool("isJumping", true);
+            if (!isGrounded)
+            {
+                myAmimation.SetBool("isJumping", true);
+            }
+            else
+            {
+                myAmimation.SetBool("isJumping", false);
+            }
+
+            if (isGrounded && jumpTimer <= 0f)
+            {
+                myRigidbody.linearVelocity = new Vector2(direction * moveSpeed, jumpForce);
+                direction = -direction;
+                jumpTimer = jumpCooldown;
+            }
+
+            FlipEnemyFacing();
         }
         else
         {
-            myAmimation.SetBool("isJumping", false);
+            myRigidbody.linearVelocity = new Vector2(0, 0);
         }
-
-        if (isGrounded && jumpTimer <= 0f)
-        {
-            myRigidbody.linearVelocity = new Vector2(direction * moveSpeed, jumpForce);
-            direction = -direction;
-            jumpTimer = jumpCooldown;
-        }
-
-        FlipEnemyFacing();
     }
 
     void FlipEnemyFacing()
     {
         transform.localScale = new Vector2(Mathf.Sign(direction), 1f);
+    }
+
+    public void Die()
+    {
+        isAlive = false;
+        if (myCollider != null)
+        {
+            myCollider.enabled = false;
+        }
+        GetComponent<Animator>().SetTrigger("isDying");
+        Destroy(gameObject, 0.3f);
     }
 }

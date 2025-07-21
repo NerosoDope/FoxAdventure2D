@@ -23,6 +23,7 @@ public class InteractEnemies : MonoBehaviour
             {
                 EagleMovement eagle = collision.GetComponent<EagleMovement>();
                 OpossumMovement opossum = collision.GetComponent<OpossumMovement>();
+                FrogMovement frog = collision.GetComponent<FrogMovement>();
 
                 if (eagle != null)
                 {
@@ -34,10 +35,15 @@ public class InteractEnemies : MonoBehaviour
                     opossum.Die();
                     myRigidbody.linearVelocity = new Vector2(myRigidbody.linearVelocity.x, bounceForce);
                 }
+                if (frog != null)
+                {
+                    frog.Die();
+                    myRigidbody.linearVelocity = new Vector2(myRigidbody.linearVelocity.x, bounceForce);
+                }
             }
             else if (myBodyCollider.IsTouching(collision))
             {
-                PlayerMovement player = collision.GetComponent<PlayerMovement>();
+                PlayerMovement player = GetComponent<PlayerMovement>();
                 if (player != null)
                 {
                     player.Die();
