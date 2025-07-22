@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2786180174217356474}
   - component: {fileID: 6551309220617419661}
   - component: {fileID: 8009700869601128403}
-  - component: {fileID: 6446521943159737993}
+  - component: {fileID: 2158345798126645105}
   m_Layer: 12
   m_Name: Cherry
   m_TagString: Interactables
@@ -247,7 +247,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6446521943159737993
+--- !u!114 &2158345798126645105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

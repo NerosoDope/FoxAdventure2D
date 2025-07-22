@@ -17,14 +17,14 @@ public class InteractEnemies : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        EagleMovement eagle = collision.GetComponent<EagleMovement>();
+        OpossumMovement opossum = collision.GetComponent<OpossumMovement>();
+        FrogMovement frog = collision.GetComponent<FrogMovement>();
+
         if (collision.CompareTag("Enemy"))
         {
-            if (myFeetCollider.IsTouching(collision))
+            if (myFeetCollider.IsTouching(collision)) // Nếu chân chạm kẻ thù > kẻ thù bị tiêu diệt
             {
-                EagleMovement eagle = collision.GetComponent<EagleMovement>();
-                OpossumMovement opossum = collision.GetComponent<OpossumMovement>();
-                FrogMovement frog = collision.GetComponent<FrogMovement>();
-
                 if (eagle != null)
                 {
                     eagle.Die();
@@ -44,7 +44,7 @@ public class InteractEnemies : MonoBehaviour
                     myRigidbody.linearVelocity = new Vector2(myRigidbody.linearVelocity.x, bounceForce);
                 }
             }
-            else if (myBodyCollider.IsTouching(collision))
+            else if (myBodyCollider.IsTouching(collision)) // Nếu người chạm kẻ thù > người chơi bị tiêu diệt
             {
                 PlayerMovement player = GetComponent<PlayerMovement>();
                 if (player != null)

@@ -39,10 +39,9 @@ public class FrogMovement : MonoBehaviour
             if (isGrounded && jumpTimer <= 0f)
             {
                 myRigidbody.linearVelocity = new Vector2(direction * moveSpeed, jumpForce);
-                direction = -direction;
-                jumpTimer = jumpCooldown;
+                direction = -direction; // Đổi hướng cho lần nhảy tiếp theo
+                jumpTimer = jumpCooldown; 
             }
-
             FlipEnemyFacing();
         }
         else
@@ -51,9 +50,10 @@ public class FrogMovement : MonoBehaviour
         }
     }
 
+    // Quay mặt khi đổi hướng di chuyển
     void FlipEnemyFacing()
     {
-        transform.localScale = new Vector2(Mathf.Sign(direction), 1f);
+        transform.localScale = new Vector2(Mathf.Sign(direction), 1f); // Mỗi lần nhảy thì đổi hướng
     }
 
     public void Die()
@@ -64,6 +64,6 @@ public class FrogMovement : MonoBehaviour
             myCollider.enabled = false;
         }
         GetComponent<Animator>().SetTrigger("isDying");
-        Destroy(gameObject, 0.3f);
+        Destroy(gameObject, 0.3f); // Thời gian chờ để chạy hoạt ảnh > xóa object
     }
 }

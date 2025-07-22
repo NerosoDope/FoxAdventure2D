@@ -13,10 +13,12 @@ public class PlayerMovement : MonoBehaviour
     CapsuleCollider2D myBodyCollider;
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
+    [SerializeField] float climbSpeed;
     [SerializeField] float deathBounce;
     [SerializeField] AudioClip deathSFX;
     bool isCrouchPressed;
     bool isAlive = true;
+    float gravityScaleAtStart;
 
     void Start()
     {
@@ -25,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
         myFeetCollider = GetComponent<BoxCollider2D>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myAnimator = GetComponent<Animator>();
+        gravityScaleAtStart = myRigidbody.gravityScale;
     }
 
     void Update()
@@ -34,14 +37,18 @@ public class PlayerMovement : MonoBehaviour
         Crouch();
         FlipSprite();
         UpdateAnimationState();
+        ClimbLadder();
     }
 
+    // Di chuyển
+    // Bấm nút để di chuyển
     void OnMove(InputValue value)
     {
         if (!isAlive) { return; }
         moveInput = value.Get<Vector2>();
     }
 
+    // Xử lý di chuyển
     void Run()
     {
         if (isCrouchPressed)
@@ -56,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
         myAnimator.SetBool("isRunning", playerHasHorizontalSpeed);
     }
 
+    // Quay mặt khi đổi hướng di chuyển
     void FlipSprite()
     {
         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.linearVelocity.x) > Mathf.Epsilon;
@@ -65,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Nhảy
     void OnJump(InputValue value)
     {
         if (!isAlive) { return; }
@@ -82,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Chuyển animation từ nhảy > rơi
     void UpdateAnimationState()
     {
         bool isPlatformed = myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform"));
@@ -90,12 +100,30 @@ public class PlayerMovement : MonoBehaviour
         myAnimator.SetBool("isFalling", myRigidbody.linearVelocity.y < -0.1f && !isPlatformed);
     }
 
+    // Leo thang
+    void ClimbLadder()
+    {
+        if (!myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        {
+            myRigidbody.gravityScale = gravityScaleAtStart;
+            return;
+        }
+
+        myRigidbody.linearVelocity = new Vector2(myRigidbody.linearVelocity.x, moveInput.y * climbSpeed);
+        bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody.linearVelocity.y) > Mathf.Epsilon;
+        myAnimator.SetBool("isClimbing", playerHasVerticalSpeed);
+        myRigidbody.gravityScale = 0f;
+    }
+
+    // Ngồi
+    // Bấm nút để ngồi
     void OnCrouch(InputValue value)
     {
         if (!isAlive) { return; }
         isCrouchPressed = value.isPressed;
     }
 
+    // Xử lý ngồi
     void Crouch()
     {
         if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform")))
@@ -107,16 +135,9 @@ public class PlayerMovement : MonoBehaviour
     public void Die()
     {
         if (!isAlive) return;
-
         isAlive = false;
         myAnimator.SetTrigger("isDying");
         myRigidbody.linearVelocity = new Vector2(-(moveInput.x * moveSpeed), deathBounce);
         AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position);
-    }
-
-    IEnumerator ResetHurtAnimation()
-    {
-        yield return new WaitForSeconds(0.3f);
-        myAnimator.SetBool("isHurt", false);
     }
 }

@@ -24,7 +24,7 @@ public class EagleMovement : MonoBehaviour
         }
     }
 
-
+    // Chạm đất đổi hướng (lên/xuống)
     void OnTriggerEnter2D(Collider2D collision)
     {
         moveSpeed = -moveSpeed;

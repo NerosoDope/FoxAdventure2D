@@ -22,16 +22,19 @@ public class OpossumMovement : MonoBehaviour
         }
     }
 
+    // Chạm đất đổi hướng (trái/phải)
     void OnTriggerExit2D(Collider2D other)
     {
         moveSpeed = -moveSpeed;
         FlipEnemyFacing();
     }
 
+    // Quay mặt khi đổi hướng di chuyển
     void FlipEnemyFacing()
     {
         transform.localScale = new Vector2(-Mathf.Sign(moveSpeed), 1);
     }
+
     public void Die()
     {
         isAlive = false;
@@ -40,6 +43,6 @@ public class OpossumMovement : MonoBehaviour
             myCollider.enabled = false;
         }
         GetComponent<Animator>().SetTrigger("isDying");
-        Destroy(gameObject, 0.3f);
+        Destroy(gameObject, 0.3f); // Thời gian chờ để chạy hoạt ảnh > xóa object
     }
 }

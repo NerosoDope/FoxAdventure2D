@@ -67,10 +67,10 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\EagleMovement.cs" />
     <Compile Include="Assets\Scripts\FrogMovement.cs" />
-    <Compile Include="Assets\Scripts\InteractPickup.cs" />
     <Compile Include="Assets\Scripts\InteractEnemies.cs" />
     <Compile Include="Assets\Scripts\OpossumMovement.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\InteractItems.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
