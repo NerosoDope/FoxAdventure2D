@@ -18,6 +18,7 @@ public class FrogMovement : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAmimation = GetComponent<Animator>();
+        myCollider = GetComponent<Collider2D>();
     }
 
     void Update()

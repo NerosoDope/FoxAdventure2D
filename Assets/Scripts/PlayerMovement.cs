@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         isAlive = false;
         myAnimator.SetTrigger("isDying");
         myRigidbody.linearVelocity = new Vector2(-(moveInput.x * moveSpeed), deathBounce);
-        // AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position);
+        AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position);
     }
 
     IEnumerator ResetHurtAnimation()

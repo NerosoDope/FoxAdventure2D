@@ -6,6 +6,7 @@ public class InteractEnemies : MonoBehaviour
     BoxCollider2D myFeetCollider;
     Rigidbody2D myRigidbody;
     [SerializeField] float bounceForce;
+    [SerializeField] AudioClip killSFX;
 
     void Start()
     {
@@ -27,16 +28,19 @@ public class InteractEnemies : MonoBehaviour
                 if (eagle != null)
                 {
                     eagle.Die();
+                    AudioSource.PlayClipAtPoint(killSFX, Camera.main.transform.position);
                     myRigidbody.linearVelocity = new Vector2(myRigidbody.linearVelocity.x, bounceForce);
                 }
                 if (opossum != null)
                 {
                     opossum.Die();
+                    AudioSource.PlayClipAtPoint(killSFX, Camera.main.transform.position);
                     myRigidbody.linearVelocity = new Vector2(myRigidbody.linearVelocity.x, bounceForce);
                 }
                 if (frog != null)
                 {
                     frog.Die();
+                    AudioSource.PlayClipAtPoint(killSFX, Camera.main.transform.position);
                     myRigidbody.linearVelocity = new Vector2(myRigidbody.linearVelocity.x, bounceForce);
                 }
             }
