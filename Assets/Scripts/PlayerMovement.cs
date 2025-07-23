@@ -106,13 +106,22 @@ public class PlayerMovement : MonoBehaviour
         if (!myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
         {
             myRigidbody.gravityScale = gravityScaleAtStart;
+            myAnimator.SetBool("isClimbing", false);
             return;
         }
 
         myRigidbody.linearVelocity = new Vector2(myRigidbody.linearVelocity.x, moveInput.y * climbSpeed);
-        bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody.linearVelocity.y) > Mathf.Epsilon;
-        myAnimator.SetBool("isClimbing", playerHasVerticalSpeed);
         myRigidbody.gravityScale = 0f;
+
+        myAnimator.SetBool("isClimbing", Mathf.Abs(moveInput.y * climbSpeed) > Mathf.Epsilon);
+
+        // Chỉ tắt các animation khác khi thực sự trèo
+        if (Mathf.Abs(moveInput.y * climbSpeed) > Mathf.Epsilon)
+        {
+            myAnimator.SetBool("isJumping", false);
+            myAnimator.SetBool("isFalling", false);
+            myAnimator.SetBool("isRunning", false);
+        }
     }
 
     // Ngồi
@@ -139,5 +148,16 @@ public class PlayerMovement : MonoBehaviour
         myAnimator.SetTrigger("isDying");
         myRigidbody.linearVelocity = new Vector2(-(moveInput.x * moveSpeed), deathBounce);
         AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position);
+    }
+
+    void TurnOffAnimationWhenClimbing()
+    {
+        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")) && Mathf.Abs(moveInput.y) > Mathf.Epsilon)
+        {
+            myAnimator.SetBool("isJumping", false);
+            myAnimator.SetBool("isFalling", false);
+            myAnimator.SetBool("isRunning", false);
+            return;
+        }
     }
 }
