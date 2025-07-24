@@ -34,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isAlive) { return; }
         Run();
-        Crouch();
         FlipSprite();
         UpdateAnimationState();
         ClimbLadder();
@@ -126,20 +125,20 @@ public class PlayerMovement : MonoBehaviour
 
     // Ngồi
     // Bấm nút để ngồi
-    void OnCrouch(InputValue value)
-    {
-        if (!isAlive) { return; }
-        isCrouchPressed = value.isPressed;
-    }
+    // void OnCrouch(InputValue value)
+    // {
+    //     if (!isAlive) { return; }
+    //     isCrouchPressed = value.isPressed;
+    // }
 
-    // Xử lý ngồi
-    void Crouch()
-    {
-        if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform")))
-        {
-            myAnimator.SetBool("isCrouching", isCrouchPressed);
-        }
-    }
+    // // Xử lý ngồi
+    // void Crouch()
+    // {
+    //     if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Platform")))
+    //     {
+    //         myAnimator.SetBool("isCrouching", isCrouchPressed);
+    //     }
+    // }
 
     public void Die()
     {
@@ -148,16 +147,5 @@ public class PlayerMovement : MonoBehaviour
         myAnimator.SetTrigger("isDying");
         myRigidbody.linearVelocity = new Vector2(-(moveInput.x * moveSpeed), deathBounce);
         AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position);
-    }
-
-    void TurnOffAnimationWhenClimbing()
-    {
-        if (myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")) && Mathf.Abs(moveInput.y) > Mathf.Epsilon)
-        {
-            myAnimator.SetBool("isJumping", false);
-            myAnimator.SetBool("isFalling", false);
-            myAnimator.SetBool("isRunning", false);
-            return;
-        }
     }
 }
