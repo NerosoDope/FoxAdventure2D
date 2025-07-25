@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D myRigidbody;
     BoxCollider2D myFeetCollider;
     CapsuleCollider2D myBodyCollider;
+    Collider2D myCollider;
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
     [SerializeField] float climbSpeed;

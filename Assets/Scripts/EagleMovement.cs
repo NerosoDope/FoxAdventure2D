@@ -3,6 +3,7 @@ using UnityEngine;
 public class EagleMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
+    [SerializeField] float changeOfDirTime;
     Rigidbody2D myRigidbody;
     Collider2D myCollider;
     bool isAlive = true;
@@ -10,6 +11,8 @@ public class EagleMovement : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<Collider2D>();
+
+        InvokeRepeating("FlipDirection", changeOfDirTime, changeOfDirTime); // Enemy sẽ đổi hướng sau 1 khoảng thời gian
     }
 
     void Update()
@@ -24,10 +27,12 @@ public class EagleMovement : MonoBehaviour
         }
     }
 
-    // Chạm đất đổi hướng (lên/xuống)
-    void OnTriggerEnter2D(Collider2D collision)
+    void FlipDirection()
     {
-        moveSpeed = -moveSpeed;
+        if (isAlive)
+        {
+            moveSpeed = -moveSpeed;
+        }
     }
 
     public void Die()
