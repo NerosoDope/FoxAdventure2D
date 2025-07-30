@@ -38,7 +38,7 @@ public class InteractEnemies : MonoBehaviour
                 PlayerMovement player = GetComponent<PlayerMovement>();
                 if (player != null)
                 {
-                    player.Die();
+                    player.Die(collision.transform);
                 }
             }
         }

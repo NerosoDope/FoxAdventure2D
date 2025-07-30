@@ -141,15 +141,36 @@ public class PlayerMovement : MonoBehaviour
     //     }
     // }
 
-    public void Die()
+    public void Die(Transform enemyTransform)
     {
         if (!isAlive) return;
+
         isAlive = false;
-        
         myAnimator.SetTrigger("isDying");
-        myRigidbody.linearVelocity = new Vector2(-(moveInput.x * moveSpeed), deathBounce);
+
+        // Xác định hướng văng dựa trên vị trí enemy
+        float knockbackDirection = transform.position.x < enemyTransform.position.x ? -1f : 1f;
+
+        Vector2 knockback = new Vector2(knockbackDirection * moveSpeed, deathBounce);
+        myRigidbody.linearVelocity = knockback;
 
         AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position);
-        FindObjectOfType<GameSession>().ProcessPlayerDeath();
+
+        FindAnyObjectByType<GameSession>()?.ProcessPlayerDeath();
+        StartCoroutine(RecoverAfterHit());
+    }
+
+    IEnumerator RecoverAfterHit()
+    {
+        yield return new WaitForSeconds(0.3f); // Chờ animation chết
+
+        // Reset input và velocity
+        moveInput = Vector2.zero;
+        myRigidbody.linearVelocity = Vector2.zero;
+
+        myAnimator.ResetTrigger("isDying");
+        myAnimator.Play("Idle"); // Đảm bảo đây là tên đúng trong Animator
+
+        isAlive = true;
     }
 }

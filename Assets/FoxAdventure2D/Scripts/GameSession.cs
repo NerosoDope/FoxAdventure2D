@@ -1,5 +1,4 @@
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +11,7 @@ public class GameSession : MonoBehaviour
 
     void Awake()
     {
-        int numGameSessions = FindObjectsOfType<GameSession>().Length;
+        int numGameSessions = FindObjectsByType<GameSession>(FindObjectsSortMode.None).Length;
         if (numGameSessions > 1)
         {
             Destroy(gameObject);
@@ -47,12 +46,19 @@ public class GameSession : MonoBehaviour
     {
         score += pointsToAdd;
         scoreText.text = score.ToString();
-}
+    }
     void TakeLife()
     {
         playerLives--;
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
         livesText.text = playerLives.ToString();
+    }
+
+    public void ResetGameSessionData()
+    {
+        playerLives = 3;
+        score = 0;
+
+        livesText.text = playerLives.ToString();
+        scoreText.text = score.ToString();
     }
 }
