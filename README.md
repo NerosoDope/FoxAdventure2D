@@ -62,7 +62,7 @@
 
 ## 👤 Developer Info | Thông tin tác giả
 
-- 👨‍💻 **Ngọc Minh** (a.k.a. *NerosoDope*)
+- 👨‍💻 **Ngo Viet Ngoc Minh** (NerosoDope)
 - 🛠 Made with Unity 6
 - 📅 Released: July 2025
 - 🗣️ Feedback: [GitHub Issues](https://github.com/NerosoDope/FoxAdventure2D/issues)
