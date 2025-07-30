@@ -31,10 +31,10 @@ Trong **Fox Adventure 2D**, người chơi sẽ:
 
 ## 📸 Hình ảnh
 
-![Screenshot 1](Assets/FoxAdventure2D/Images/Screenshot1.png)  
+![Screenshot 1](Assets/FoxAdventure2D/Images/Screenshot1.jpg)  
 *Chú cáo bắt đầu hành trình tại khu rừng đầu tiên.*
 
-![Screenshot 2](Assets/FoxAdventure2D/Images/Screenshot2.png)  
+![Screenshot 2](Assets/FoxAdventure2D/Images/Screenshot2.jpg)  
 *Vượt qua kẻ địch bằng cú nhảy chuẩn xác.*
 
 ---
