@@ -50,7 +50,7 @@
 
 ---
 
-## 📦 Download & Source Code | Tải game & mã nguồn
+## 📦 Play & Source Code | Chơi game & mã nguồn
 
 - 🎮 **Itch.io**  
   [https://nerosodope1027.itch.io/foxadventure2d](https://nerosodope1027.itch.io/foxadventure2d)
