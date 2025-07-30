@@ -50,4 +50,25 @@
 
 ---
 
-## 📦 Down
+## 📦 Download & Source Code | Tải game & mã nguồn
+
+- 🎮 **Itch.io**  
+  [https://nerosodope1027.itch.io/foxadventure2d](https://nerosodope1027.itch.io/foxadventure2d)
+
+- 💻 **GitHub Repository**  
+  [https://github.com/NerosoDope/FoxAdventure2D](https://github.com/NerosoDope/FoxAdventure2D)
+
+---
+
+## 👤 Developer Info | Thông tin tác giả
+
+- 👨‍💻 **Ngọc Minh** (a.k.a. *NerosoDope*)
+- 🛠 Made with Unity 6
+- 📅 Released: July 2025
+- 🗣️ Feedback: [GitHub Issues](https://github.com/NerosoDope/FoxAdventure2D/issues)
+
+---
+
+🎉 **EN:** Thanks for playing! If you like it, please rate it on Itch.io and share with friends.  
+🎉 **VI:** Cảm ơn bạn đã chơi! Nếu bạn thích game, hãy đánh giá trên Itch.io và chia sẻ cho bạn bè nhé!
+
