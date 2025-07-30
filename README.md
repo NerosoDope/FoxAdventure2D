@@ -42,10 +42,10 @@
 
 ## 📸 Screenshots | Ảnh chụp màn hình
 
-![Level Start](Assets/Screenshots/level_start.png)  
+![Level Start](Assets/FoxAdventure2D/Images/Screenshot1.jpg)
 *EN: The fox begins its journey. | VI: Chú cáo bắt đầu hành trình.*
 
-![Jumping on Enemy](Assets/Screenshots/enemy_jump.png)  
+![Jumping on Enemy](Assets/FoxAdventure2D/Images/Screenshot2.jpg)
 *EN: Jump on enemies to defeat them. | VI: Nhảy lên đầu kẻ địch để tiêu diệt.*
 
 ---
