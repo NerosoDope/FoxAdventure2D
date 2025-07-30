@@ -1,6 +1,6 @@
 # 🦊 Fox Adventure 2D
 
-**English 🇬🇧 | Tiếng Việt 🇻🇳**
+**English EN | Tiếng Việt VN**
 
 ---
 
