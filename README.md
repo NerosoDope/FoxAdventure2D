@@ -1,61 +1,61 @@
 # 🦊 Fox Adventure 2D
 
-**Fox Adventure 2D** là một trò chơi platformer 2D vui nhộn và đầy thử thách. Bạn sẽ vào vai một chú cáo thông minh, khám phá thế giới pixel nhiều màu sắc, thu thập vật phẩm, 
-né tránh và tiêu diệt kẻ thù bằng cách nhảy lên đầu chúng. Trò chơi mang lại trải nghiệm cổ điển kết hợp với điều khiển mượt mà, phù hợp với cả người chơi mới.
+**Fox Adventure 2D** is a fun and challenging 2D platformer where you play as a clever fox navigating colorful pixel worlds, collecting items, and defeating enemies by jumping on their heads. The game combines classic platformer vibes with smooth and responsive controls.
 
 ---
 
 ## 🎮 Gameplay
 
-Trong **Fox Adventure 2D**, người chơi sẽ:
+In **Fox Adventure 2D**, your mission is to:
 
-- 🧺 **Thu thập vật phẩm**: Nhặt các vật phẩm nằm rải rác trong mỗi màn chơi.
-- 👾 **Tiêu diệt kẻ địch**: Nhảy lên đầu kẻ thù để đánh bại chúng.
-- 🧗 **Leo trèo & vượt chướng ngại vật**: Khéo léo sử dụng các phím điều khiển để vượt qua các địa hình hiểm trở.
+- 🧺 **Collect items** scattered across the level.
+- 👾 **Defeat enemies** by jumping on their heads.
+- 🧗 **Climb platforms and overcome obstacles** using precise movement and timing.
 
-> Mục tiêu của bạn là hoàn thành màn chơi với điểm số cao nhất và không bị hạ gục bởi kẻ địch hoặc cạm bẫy.
-
----
-
-## 🕹️ Điều khiển
-
-| Hành động      | Phím điều khiển           |
-|----------------|----------------------------|
-| Di chuyển      | `A` / `D` hoặc `←` / `→`    |
-| Nhảy           | `Space`                    |
-| Leo trèo       | `W` hoặc `↑`               |
-
-Điều khiển đơn giản nhưng đủ độ thử thách để mang lại trải nghiệm hấp dẫn và lôi cuốn.
+> Your goal is to reach the end of each level with the highest score possible while avoiding enemies and traps.
 
 ---
 
-## 📸 Hình ảnh
+## 🕹️ Controls
 
-![Screenshot 1](Assets/FoxAdventure2D/Images/Screenshot1.jpg)  
-*Chú cáo bắt đầu hành trình tại khu rừng đầu tiên.*
+| Action         | Keys                        |
+|----------------|-----------------------------|
+| Move           | `A` / `D` or `←` / `→`       |
+| Jump           | `Space`                     |
+| Climb          | `W` or `↑`                  |
 
-![Screenshot 2](Assets/FoxAdventure2D/Images/Screenshot2.jpg)  
-*Vượt qua kẻ địch bằng cú nhảy chuẩn xác.*
+Simple, familiar controls designed for quick learning and smooth gameplay.
 
 ---
 
-## 📦 Tải về & Mã nguồn
+## 📸 Screenshots
 
-- 🔗 **Chơi game tại Itch.io**:  
+![Level Start](Assets/Screenshots/level_start.png)  
+*The fox begins its journey in the lush forest.*
+
+![Jumping on Enemy](Assets/Screenshots/enemy_jump.png)  
+*Take down enemies with precise jumps.*
+
+---
+
+## 📦 Download & Source Code
+
+- 🎮 **Play or download on Itch.io**:  
   👉 [https://nerosodope1027.itch.io/foxadventure2d](https://nerosodope1027.itch.io/foxadventure2d)
 
-- 💻 **Xem mã nguồn trên GitHub**:  
+- 💻 **View the source code on GitHub**:  
   👉 [https://github.com/NerosoDope/FoxAdventure2D](https://github.com/NerosoDope/FoxAdventure2D)
 
 ---
 
-## 🧑‍💻 Thông tin nhà phát triển
+## 👤 Developer Info
 
-- 👨‍💻 **Tác giả**: Ngô Viết Ngọc Minh (NerosoDope)
-- 🛠 **Phát triển bằng**: Unity 6
-- 📅 **Ngày phát hành**: Tháng 7 năm 2025
-- 💬 **Liên hệ / Góp ý**: [Liên hệ qua GitHub Issues](https://github.com/NerosoDope/FoxAdventure2D/issues)
+- 👨‍💻 **Created by**: Ngọc Minh (NerosoDope)  
+- 🛠 **Built with**: Unity 6  
+- 📅 **Release Date**: July 2025  
+- 🗣️ **Feedback & Issues**: [Submit on GitHub](https://github.com/NerosoDope/FoxAdventure2D/issues)
 
 ---
 
-🎉 Cảm ơn bạn đã chơi **Fox Adventure 2D**! Nếu bạn thích game, hãy chia sẻ với bạn bè hoặc đánh giá trên Itch.io nhé!
+🎉 Thanks for playing **Fox Adventure 2D**!  
+If you enjoy the game, feel free to rate it on Itch.io and share it with your friends!
