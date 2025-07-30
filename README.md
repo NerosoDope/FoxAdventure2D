@@ -40,7 +40,7 @@
 
 ---
 
-## 📸 Screenshots | Ảnh chụp màn hình
+## 📸 Screenshots | Hình ảnh
 
 ![Level Start](Assets/FoxAdventure2D/Images/Screenshot1.jpg)
 *EN: The fox begins its journey. | VI: Chú cáo bắt đầu hành trình.*
