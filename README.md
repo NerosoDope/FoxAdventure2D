@@ -1,6 +1,6 @@
 # 🦊 Fox Adventure 2D
 
-**English 🇺🇸 | Tiếng Việt 🇻🇳**
+**English 🇬🇧 | Tiếng Việt 🇻🇳**
 
 ---
 
@@ -53,7 +53,7 @@
 ## 📦 Play & Source Code | Chơi game & mã nguồn
 
 - 🎮 **Itch.io**  
-  [https://nerosodope1027.itch.io/foxadventure2d](https://nerosodope1027.itch.io/foxadventure2d)
+  [https://nerosodope.itch.io/foxadventure2d](https://nerosodope1027.itch.io/foxadventure2d)
 
 - 💻 **GitHub Repository**  
   [https://github.com/NerosoDope/FoxAdventure2D](https://github.com/NerosoDope/FoxAdventure2D)
