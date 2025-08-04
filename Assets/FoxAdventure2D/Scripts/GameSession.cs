@@ -1,13 +1,16 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameSession : MonoBehaviour
 {
-    [SerializeField] int playerLives;
-    [SerializeField] int score;
+    [SerializeField] int playerLives = 3;
+    [SerializeField] int score = 0;
     [SerializeField] TextMeshProUGUI livesText;
     [SerializeField] TextMeshProUGUI scoreText;
+
+    bool isGameOver = false;
 
     void Awake()
     {
@@ -24,41 +27,80 @@ public class GameSession : MonoBehaviour
 
     void Start()
     {
-        livesText.text = playerLives.ToString();
-        scoreText.text = score.ToString();
-    }
-    public void ProcessPlayerDeath()
-    {
-        if (playerLives > 1)
-        {
-            TakeLife();
-        }
-        else { ResetGameSession(); }
+        UpdateUI();
     }
 
-    void ResetGameSession()
+    void Update()
     {
-        SceneManager.LoadScene(0);
-        Destroy(gameObject);
+        if (Input.GetKeyDown(KeyCode.Return) && isGameOver)
+        {
+            SceneManager.LoadScene(0);
+            Destroy(gameObject);
+        }
+    }
+
+    public void ProcessPlayerDeath()
+    {
+        if (isGameOver) return;
+
+        TakeLife();
+
+        if (playerLives <= 0)
+        {
+            StartCoroutine(HandleGameOver());
+        }
+    }
+
+    IEnumerator HandleGameOver()
+    {
+        isGameOver = true;
+
+        // Tắt tất cả collider trên Player
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            foreach (Collider2D col in player.GetComponentsInChildren<Collider2D>())
+            {
+                col.enabled = false;
+            }
+        }
+
+        // Fade out màn hình
+        yield return ScreenFader.Instance.StartCoroutine(ScreenFader.Instance.FadeOut());
+
+        // Hiện Game Over Panel
+        ScreenFader.Instance.ShowGameOverPanel();
+    }
+
+    void TakeLife()
+    {
+        playerLives--;
+        Debug.Log(playerLives);
+        UpdateUI();
+    }
+
+    void UpdateUI()
+    {
+        if (livesText != null) livesText.text = playerLives.ToString();
+        if (scoreText != null) scoreText.text = score.ToString();
     }
 
     public void AddToScore(int pointsToAdd)
     {
         score += pointsToAdd;
-        scoreText.text = score.ToString();
-    }
-    void TakeLife()
-    {
-        playerLives--;
-        livesText.text = playerLives.ToString();
+        UpdateUI();
     }
 
     public void ResetGameSessionData()
     {
         playerLives = 3;
         score = 0;
+        UpdateUI();
+    }
 
-        livesText.text = playerLives.ToString();
-        scoreText.text = score.ToString();
+    // Kiểm tra xem còn mạng không
+    public bool PlayerHasLivesLeft()
+    {
+        return playerLives > 0;
     }
 }

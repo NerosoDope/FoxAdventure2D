@@ -17,10 +17,6 @@ public class InteractEnemies : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        EagleMovement eagle = collision.GetComponent<EagleMovement>();
-        OpossumMovement opossum = collision.GetComponent<OpossumMovement>();
-        FrogMovement frog = collision.GetComponent<FrogMovement>();
-
         if (collision.CompareTag("Enemy"))
         {
             EnemyBase enemy = collision.GetComponent<EnemyBase>();

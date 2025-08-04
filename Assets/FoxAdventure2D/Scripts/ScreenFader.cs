@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ScreenFader : MonoBehaviour
 {
@@ -10,19 +11,30 @@ public class ScreenFader : MonoBehaviour
     [SerializeField] Image fadeImage;
     [SerializeField] float fadeDuration = 1f;
 
+    [Header("Game Over UI")]
+    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] TextMeshProUGUI gameOverText;
+
+    bool isGameOverShown = false;
+
     void Awake()
+{
+    if (Instance == null)
     {
-        // Singleton để dùng ở mọi nơi
-        if (Instance == null)
+        Instance = this;
+
+        if (transform.parent != null)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            transform.SetParent(null); // Tách ra khỏi parent nếu có
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+        DontDestroyOnLoad(gameObject);
     }
+    else
+    {
+        Destroy(gameObject);
+    }
+}
 
     void OnEnable()
     {
@@ -36,8 +48,19 @@ public class ScreenFader : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Khi load màn mới, fade in
         StartCoroutine(FadeIn());
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
+
+        if (gameOverText != null)
+        {
+            SetTextAlpha(gameOverText, 0f);
+        }
+
+        isGameOverShown = false;
     }
 
     public IEnumerator FadeOut()
@@ -71,5 +94,34 @@ public class ScreenFader : MonoBehaviour
         Color c = fadeImage.color;
         c.a = Mathf.Clamp01(alpha);
         fadeImage.color = c;
+    }
+
+    void SetTextAlpha(TextMeshProUGUI text, float alpha)
+    {
+        Color c = text.color;
+        c.a = Mathf.Clamp01(alpha);
+        text.color = c;
+    }
+
+    public void ShowGameOverPanel()
+    {
+        if (isGameOverShown) return;
+
+        gameOverPanel.SetActive(true);
+        StartCoroutine(FadeInText(gameOverText));
+        isGameOverShown = true;
+    }
+
+    IEnumerator FadeInText(TextMeshProUGUI text)
+    {
+        float t = 0;
+        while (t < fadeDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            float alpha = t / fadeDuration;
+            SetTextAlpha(text, alpha);
+            yield return null;
+        }
+        SetTextAlpha(text, 1f);
     }
 }

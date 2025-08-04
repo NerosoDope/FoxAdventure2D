@@ -156,8 +156,20 @@ public class PlayerMovement : MonoBehaviour
 
         AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position);
 
-        FindAnyObjectByType<GameSession>()?.ProcessPlayerDeath();
-        StartCoroutine(RecoverAfterHit());
+        var gameSession = FindAnyObjectByType<GameSession>();
+        gameSession?.ProcessPlayerDeath();
+
+        // Nếu còn mạng thì hồi phục, nếu không thì giữ nguyên animation "isDying"
+        if (gameSession != null && gameSession.PlayerHasLivesLeft())
+        {
+            StartCoroutine(RecoverAfterHit());
+        }
+        else
+        {
+            // Ngắt hết collider để nhân vật không tương tác gì nữa
+            myFeetCollider.enabled = false;
+            myBodyCollider.enabled = false;
+        }
     }
 
     IEnumerator RecoverAfterHit()
