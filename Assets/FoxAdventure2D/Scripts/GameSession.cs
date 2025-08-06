@@ -7,7 +7,8 @@ public class GameSession : MonoBehaviour
 {
     [SerializeField] int playerLives = 3;
     [SerializeField] int score = 0;
-    [SerializeField] TextMeshProUGUI livesText;
+    [SerializeField] Transform livesPanel;
+    [SerializeField] GameObject heartPrefab;
     [SerializeField] TextMeshProUGUI scoreText;
 
     bool isGameOver = false;
@@ -81,10 +82,32 @@ public class GameSession : MonoBehaviour
 
     void UpdateUI()
     {
-        if (livesText != null) livesText.text = playerLives.ToString();
-        if (scoreText != null) scoreText.text = score.ToString();
-    }
+        UpdateLivesUI();
 
+        if (scoreText != null)
+        {
+            scoreText.text = score.ToString();
+        }
+    }
+    void UpdateLivesUI()
+    {
+        if (heartPrefab == null)
+        {
+            return;
+        }
+
+        // Xóa toàn bộ tim cũ
+        foreach (Transform child in livesPanel)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Tạo lại số tim tương ứng
+        for (int i = 0; i < playerLives; i++)
+        {
+            Instantiate(heartPrefab, livesPanel).name = $"Heart_{i}";
+        }
+    }
     public void AddToScore(int pointsToAdd)
     {
         score += pointsToAdd;
