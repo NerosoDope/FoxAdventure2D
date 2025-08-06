@@ -12,6 +12,7 @@ public class GameSession : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
 
     bool isGameOver = false;
+    bool isWinGame = false;
 
     void Awake()
     {
@@ -33,8 +34,9 @@ public class GameSession : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && isGameOver)
+        if ((isGameOver || isWinGame) && Input.GetKeyDown(KeyCode.Return))
         {
+            ResetGameSessionData();
             SceneManager.LoadScene(0);
             Destroy(gameObject);
         }
@@ -42,41 +44,62 @@ public class GameSession : MonoBehaviour
 
     public void ProcessPlayerDeath()
     {
-        if (isGameOver) return;
+        if (isGameOver || isWinGame) return;
 
         TakeLife();
 
         if (playerLives <= 0)
         {
-            StartCoroutine(HandleGameOver());
+            EndGame(false); // Game Over
         }
     }
 
-    IEnumerator HandleGameOver()
+    public void EndGame(bool isWin)
     {
-        isGameOver = true;
+        if (isGameOver || isWinGame) return;
 
-        // Tắt tất cả collider trên Player
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
+        if (isWin)
         {
-            foreach (Collider2D col in player.GetComponentsInChildren<Collider2D>())
+            isWinGame = true;
+        }
+        else
+        {
+            isGameOver = true;
+        }
+
+        StartCoroutine(EndGameRoutine(isWin));
+    }
+
+    IEnumerator EndGameRoutine(bool isWin)
+    {
+        // Nếu thua thì tắt collider player
+        if (!isWin)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
             {
-                col.enabled = false;
+                foreach (Collider2D col in player.GetComponentsInChildren<Collider2D>())
+                {
+                    col.enabled = false;
+                }
             }
         }
 
-        // Fade out màn hình
         yield return ScreenFader.Instance.StartCoroutine(ScreenFader.Instance.FadeOut());
 
-        // Hiện Game Over Panel
-        ScreenFader.Instance.ShowGameOverPanel();
+        if (isWin)
+        {
+            ScreenFader.Instance.ShowCongratulations();
+        }
+        else
+        {
+            ScreenFader.Instance.ShowGameOverPanel();
+        }
     }
 
     void TakeLife()
     {
         playerLives--;
-        Debug.Log(playerLives);
         UpdateUI();
     }
 
@@ -89,25 +112,22 @@ public class GameSession : MonoBehaviour
             scoreText.text = score.ToString();
         }
     }
+
     void UpdateLivesUI()
     {
-        if (heartPrefab == null)
-        {
-            return;
-        }
+        if (heartPrefab == null || livesPanel == null) return;
 
-        // Xóa toàn bộ tim cũ
         foreach (Transform child in livesPanel)
         {
             Destroy(child.gameObject);
         }
 
-        // Tạo lại số tim tương ứng
         for (int i = 0; i < playerLives; i++)
         {
             Instantiate(heartPrefab, livesPanel).name = $"Heart_{i}";
         }
     }
+
     public void AddToScore(int pointsToAdd)
     {
         score += pointsToAdd;
@@ -118,10 +138,11 @@ public class GameSession : MonoBehaviour
     {
         playerLives = 3;
         score = 0;
+        isGameOver = false;
+        isWinGame = false;
         UpdateUI();
     }
 
-    // Kiểm tra xem còn mạng không
     public bool PlayerHasLivesLeft()
     {
         return playerLives > 0;

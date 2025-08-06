@@ -9,7 +9,7 @@ public class ScreenFader : MonoBehaviour
     public static ScreenFader Instance;
 
     [SerializeField] Image fadeImage;
-    [SerializeField] float fadeDuration = 1f;
+    [SerializeField] float fadeDuration = 0.5f;
 
     [Header("Game Over UI")]
     [SerializeField] GameObject gameOverPanel;
@@ -18,23 +18,23 @@ public class ScreenFader : MonoBehaviour
     bool isGameOverShown = false;
 
     void Awake()
-{
-    if (Instance == null)
     {
-        Instance = this;
-
-        if (transform.parent != null)
+        if (Instance == null)
         {
-            transform.SetParent(null); // Tách ra khỏi parent nếu có
-        }
+            Instance = this;
 
-        DontDestroyOnLoad(gameObject);
+            if (transform.parent != null)
+            {
+                transform.SetParent(null); // Tách ra khỏi parent nếu có
+            }
+
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    else
-    {
-        Destroy(gameObject);
-    }
-}
 
     void OnEnable()
     {
@@ -123,5 +123,14 @@ public class ScreenFader : MonoBehaviour
             yield return null;
         }
         SetTextAlpha(text, 1f);
+    }
+    public void ShowCongratulations()
+    {
+        if (isGameOverShown) return;
+
+        gameOverText.text = "Congratulations!";
+        gameOverPanel.SetActive(true);
+        StartCoroutine(FadeInText(gameOverText));
+        isGameOverShown = true;
     }
 }

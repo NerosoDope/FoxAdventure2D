@@ -4,19 +4,34 @@ using UnityEngine.SceneManagement;
 
 public class LevelExit : MonoBehaviour
 {
-    [SerializeField] float levelLoadDelay = 1f;
+    [SerializeField] float levelLoadDelay = 0.5f;
+    bool isGameOver = false;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(LoadNextLevel());
+        if (!collision.CompareTag("Player") || isGameOver) return;
+
+        isGameOver = true;
+
+        if (IsLastLevel())
+        {
+            HandleWinGame();
+        }
+        else
+        {
+            StartCoroutine(LoadNextLevel());
+        }
+    }
+
+    bool IsLastLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        return currentSceneIndex == SceneManager.sceneCountInBuildSettings - 1;
     }
 
     IEnumerator LoadNextLevel()
     {
-        // Bắt đầu fade out screen
         yield return ScreenFader.Instance.StartCoroutine(ScreenFader.Instance.FadeOut());
-
-        // Delay trước khi vào màn chơi
         yield return new WaitForSecondsRealtime(levelLoadDelay);
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -29,5 +44,10 @@ public class LevelExit : MonoBehaviour
         }
 
         SceneManager.LoadScene(nextSceneIndex);
+    }
+
+    public void HandleWinGame()
+    {
+        FindFirstObjectByType<GameSession>()?.EndGame(true); // Thắng
     }
 }
